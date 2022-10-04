@@ -1,10 +1,10 @@
-function validateProperty( obj, propValidator ){
+function validateProperty( obj, propValidator ){                                    //Task 1
 
     if(obj[propValidator.name] == undefined){
         return false;
     }
 
-    for (const idx in propValidator.validators) {
+    for (var idx=0; idx<propValidator.validators.length; idx++) {
         if (!propValidator.validators[idx](obj[propValidator.name])) {
             return false;
         }
@@ -13,7 +13,7 @@ function validateProperty( obj, propValidator ){
     return true;
 }
 
-function validateProperties( obj, propValidators ){
+function validateProperties( obj, propValidators ){                                 //Task 2
 
     var invalidProperties = [];
     var iP_count = 0;
@@ -24,19 +24,10 @@ function validateProperties( obj, propValidators ){
         }
     }
     
-    /*
-    for (const val_idx in propValidators){
-        console.log(val_idx);
-        if( !validateProperty(obj, propValidators[val_idx]) ){
-            invalidProperties[iP_count++] = propValidators[val_idx].name;
-        }
-    }
-    */
-    
     return invalidProperties;
 }
 
-Object.prototype.validateProperties = function (propValidators) {
+Object.prototype.validateProperties = function (propValidators) {                   //Task_1
     return validateProperties( this, propValidators );
 }
 
