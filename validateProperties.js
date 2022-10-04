@@ -18,14 +18,21 @@ function validateProperties( obj, propValidators ){
     var invalidProperties = [];
     var iP_count = 0;
 
-    for (const val_idx in propValidators){
-
+    for(var val_idx=0; val_idx<propValidators.length; val_idx++){
         if( !validateProperty(obj, propValidators[val_idx]) ){
             invalidProperties[iP_count++] = propValidators[val_idx].name;
         }
-
     }
-
+    
+    /*
+    for (const val_idx in propValidators){
+        console.log(val_idx);
+        if( !validateProperty(obj, propValidators[val_idx]) ){
+            invalidProperties[iP_count++] = propValidators[val_idx].name;
+        }
+    }
+    */
+    
     return invalidProperties;
 }
 
