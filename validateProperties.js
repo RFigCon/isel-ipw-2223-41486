@@ -27,7 +27,7 @@ function validateProperties( obj, propValidators ){                             
     return invalidProperties;
 }
 
-Object.prototype.validateProperties = function (propValidators) {                   //Task_1
+Object.prototype.validateProperties = function (propValidators) {                   //Task_3
     return validateProperties( this, propValidators );
 }
 
