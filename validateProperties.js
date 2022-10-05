@@ -4,7 +4,7 @@ function validateProperty( obj, propValidator ){                                
         return false;
     }
 
-    for (var idx=0; idx<propValidator.validators.length; idx++) {
+    for (let idx=0; idx<propValidator.validators.length; idx++) {
         if (!propValidator.validators[idx](obj[propValidator.name])) {
             return false;
         }
@@ -15,10 +15,10 @@ function validateProperty( obj, propValidator ){                                
 
 function validateProperties( obj, propValidators ){                                 //Task 2
 
-    var invalidProperties = [];
-    var iP_count = 0;
+    let invalidProperties = [];
+    let iP_count = 0;
 
-    for(var val_idx=0; val_idx<propValidators.length; val_idx++){
+    for(let val_idx=0; val_idx<propValidators.length; val_idx++){
         if( !validateProperty(obj, propValidators[val_idx]) ){
             invalidProperties[iP_count++] = propValidators[val_idx].name;
         }

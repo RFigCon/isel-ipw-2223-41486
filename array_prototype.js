@@ -1,5 +1,12 @@
 Array.prototype.associateWith = function(transformation){
 
+    let obj = {};
+
+    for(let idx=0; idx<this.length; idx++){
+        obj[this[idx]] = transformation(this[idx]);
+    }
+    
+    return obj;
 }
 
 let numbers = ["one", "two", "three", "four"]
