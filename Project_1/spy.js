@@ -1,3 +1,4 @@
+//Task 6
 function Spy(target, method){
     
     const oldFunc = target[method];

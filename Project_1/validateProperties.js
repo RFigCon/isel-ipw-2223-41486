@@ -13,6 +13,17 @@ function validateProperty( obj, propValidator ){                                
     return true;
 }
 
+const validator = {name : "p1" , validators: [s => typeof s == 'string' && s.length > 2, s => s[0]=="a"]  }
+const obj1 = { p1 : "abc" }
+const obj2 = { p2 : 123 }
+const obj3 = { p1 : "a" , p2 : 123 }
+
+console.log("\nTask 1:")
+console.log( validateProperty(obj1, validator) ) //true
+console.log( validateProperty(obj2, validator) ) //false
+console.log( validateProperty(obj3, validator) ) //false
+
+
 function validateProperties( obj, propValidators ){                                 //Task 2
 
     let invalidProperties = [];
@@ -27,10 +38,6 @@ function validateProperties( obj, propValidators ){                             
     return invalidProperties;
 }
 
-Object.prototype.validateProperties = function (propValidators) {                   //Task_3
-    return validateProperties( this, propValidators );
-}
-
 const validators = [
     {
     name : "p1" , validators: [s => typeof s == 'string' && s.length > 2, s => s[0]=="a"] 
@@ -40,18 +47,21 @@ const validators = [
     }
 ]
 
-const obj1 = { p1 : "a" }
-const obj2 = { p1 : 123  }
-const obj3 = { p1 : "abc" , p2 : 123 }
+const obj4 = { p1 : "a" }
+const obj5 = { p1 : 123  }
+const obj6 = { p1 : "abc" , p2 : 123 }
 
-const x1 = validateProperties(obj1, validators) // ["p1", "p2"]
-const x2 = validateProperties(obj2, validators) // ["p1", "p2"]
-const x3 = validateProperties(obj3, validators) // []
+console.log("\nTask 2:")
+console.log( validateProperties(obj4, validators) ) // ["p1", "p2"]
+console.log( validateProperties(obj5, validators) ) // ["p1", "p2"]
+console.log( validateProperties(obj6, validators) ) // []
 
-//const x1 = obj1.validateProperties(validators) // ["p1", "p2"]
-//const x2 = obj2.validateProperties(validators) // ["p1", "p2"]
-//const x3 = obj3.validateProperties(validators) // []
 
-console.log(x1);
-console.log(x2);
-console.log(x3);
+Object.prototype.validateProperties = function (propValidators) {                   //Task_3
+    return validateProperties( this, propValidators );
+}
+
+console.log("\nTask 3:")
+console.log( obj4.validateProperties(validators) ) // ["p1", "p2"]
+console.log( obj5.validateProperties(validators) ) // ["p1", "p2"]
+console.log( obj6.validateProperties(validators) ) // []
