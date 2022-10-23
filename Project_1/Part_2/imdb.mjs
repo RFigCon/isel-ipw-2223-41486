@@ -108,6 +108,8 @@ function make_request_pr(id) {
 main_aw()
 //main_pr()
 
+
+
 //Simulate fetch
 function internal_id_fetch(url){
     let jsonObj = {
