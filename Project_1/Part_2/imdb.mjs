@@ -1,7 +1,6 @@
 //API-Key = k_722ghagn
 import { readFile, writeFile } from 'node:fs/promises'
 import fetch from 'node-fetch'
-import { Console } from 'node:console'
 
 const URL = 'https://imdb-api.com/en/API/Title/k_722ghagn/'
 const IN_FILE = './movie_request.json'
@@ -10,12 +9,9 @@ const OUT_FILE = 'movies.json'
 
 //Async/await
 async function main_aw(){
-    let st = Date.now()
     let id_list = await get_ids_aw()
     let movie_list = await make_all_requests_aw(id_list)
     write_file(movie_list)
-    let end = Date.now()
-    console.log(end-st)
 }
 
 async function get_ids_aw(){
@@ -31,9 +27,10 @@ function make_all_requests_aw(id_list){
 async function make_request_aw(id) {
     let url = URL + id
     try {
-        //let response = await fetch(url)
-        let response = await internal_id_fetch(url)
-        return await response//.json()
+        let response = await fetch(url)
+        return await response.json()
+        //let response = await internal_id_fetch(url)
+        //return await response
     } catch(err) {
         return err
     }
@@ -66,39 +63,21 @@ function main_pr(){
 }
 
 function get_ids_pr(){
-    let ret = readFile(IN_FILE)
-                .then((fileContent) => {
-                    JSON.parse(fileContent)['movie-ids']
-                }).then()
-    return ret
 
-    //return fileContent = await readFile(IN_FILE)
-    //return  JSON.parse(fileContent)['movie-ids']
+    return readFile(IN_FILE)
+            .then(fileContent =>  JSON.parse(fileContent)['movie-ids'] )
+    
 }
 
-function make_all_requests_pr(id_list){
-
-    console.log("Test make_all_requests_pr/id_list = " + id_list)
-
-    return new Promise((resolve, reject) => {
-
-        let arr = []
-        for (let index = 0; index < id_list.length; index++) {
-            arr[index] = make_request_pr(id_list[index])
-        }
-
-        resolve(arr)
-    })
-    
-
-    //return Promise.all(id_list.map(make_request_pr))
+function make_all_requests_pr(id_list){ 
+    return Promise.all(id_list.map(make_request_pr))
 }
 
 function make_request_pr(id) {
     let url = URL + id
     try {
-        //return fetch(url).then(response => response.json())
-        return internal_id_fetch(url)
+        return fetch(url).then(response => response.json())
+        //return internal_id_fetch(url)
     } catch(err) {
         return err
     }
@@ -123,5 +102,5 @@ function internal_id_fetch(url){
                                 resolve(jsonObj)
                             }, 1000)
                         })
-    //return jsonObj
+    
 }
